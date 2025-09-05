@@ -28,8 +28,6 @@ extern size_t mem_read(byte *buffer, size_t length, pid_t pid, qword offset);
  */
 extern size_t mem_write(byte *data, size_t length, pid_t pid, qword offset);
 
-#endif
-
 #define _JET_C_
 
 /**
@@ -67,6 +65,25 @@ extern bool jet_inject_pid(byte *data, size_t length, pid_t pid);
  */
 extern bool jet_inject_name(byte *data, size_t length, char *procname);
 
-#endif
+/**
+ * Alternate version of jet_inject_priv() that doesn't use ptrace() calls.
+ */
+extern bool jet_inject_priv_noptrace(byte *data, size_t length);
+
+/**
+ * Alternate version of jet_inject_pid() that doesn't use ptrace() calls.
+ */
+extern bool jet_inject_pid_noptrace(byte *data, size_t length, pid_t pid);
+
+/**
+ * Alternate version of jet_inject_name() that doesn't use ptrace() calls.
+ */
+extern bool jet_inject_name_noptrace(byte *data, size_t length, pid_t pid);
+
+extern byte stub[];
+
+extern size_t get_stub_len(void);
+
+extern void set_stub_dst(qword address);
 
 #endif //__PROCJET_H__
