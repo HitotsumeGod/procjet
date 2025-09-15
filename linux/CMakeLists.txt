@@ -1,6 +1,5 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.15...4.00)
 project(procjet)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
 add_executable(procjet 
 	${CMAKE_SOURCE_DIR}/src/main/pilot.c 
 	${CMAKE_SOURCE_DIR}/src/main/mem.c

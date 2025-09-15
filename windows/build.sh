@@ -1,0 +1,1 @@
+cmake -DCMAKE_TOOLCHAIN_FILE=mingw-w64_tc.cmake -S . -B build
