@@ -1,7 +1,6 @@
 #ifndef __WINJET_H__
 #define __WINJET_H__
 
-#include "ptools.h"
 #include <windows.h>
 
 extern HANDLE winjet_select_process(void);

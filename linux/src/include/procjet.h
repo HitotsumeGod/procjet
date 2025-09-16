@@ -1,8 +1,8 @@
 #ifndef __PROCJET_H__
 #define __PROCJET_H__
 
+#include "ptools.h"
 #include <sys/types.h>
-#include "std/ptools.h"
 
 #define _MEM_C_
 

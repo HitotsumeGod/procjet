@@ -1,0 +1,6 @@
+[submodule "windows/vendors/ptools"]
+	path = windows/vendors/ptools
+	url = https://github.com/HitotsumeGod/ptools
+[submodule "linux/vendors/ptools"]
+	path = linux/vendors/ptools
+	url = https://github.com/HitotsumeGod/ptools
