@@ -2,6 +2,6 @@
 
 int main(void)
 {
-        winjet_select_process();
+        winjet_enum_processes(stdout);
         return 0;
 }
