@@ -13,9 +13,9 @@
  * @param length the length of the data buffer
  * @param pid the process id of the target process
  * @param offset the offset into the process memory at which the data is to be read
- * @return the number of bytes read from process memory
+ * @return a pointer to an errep linked list for debugging
  */
-extern size_t mem_read(byte *buffer, size_t length, pid_t pid, qword offset);
+extern struct errep *mem_read(byte *buffer, size_t length, pid_t pid, qword offset);
 
 /**
  * @brief Overwrites process memory via the /proc virtual filesystem.
@@ -24,9 +24,9 @@ extern size_t mem_read(byte *buffer, size_t length, pid_t pid, qword offset);
  * @param length the length of the data to be written
  * @param pid the process id of the target process
  * @param offset the offset into the process memory at which the data is to be written
- * @return the number of bytes written to process memory
+ * @return a pointer to an errep linked list for debugging
  */
-extern size_t mem_write(byte *data, size_t length, pid_t pid, qword offset);
+extern struct errep *mem_write(byte *data, size_t length, pid_t pid, qword offset);
 
 #define _JET_C_
 
@@ -37,9 +37,9 @@ extern size_t mem_write(byte *data, size_t length, pid_t pid, qword offset);
  * process is found, the shellcode is injected and executed as normal.
  * @param data the binary data (typically shellcode) to be executed from remote process memory
  * @param length the length of the executable data
- * @return a boolean value confirming the success or failure of the function
+ * @return a pointer to an errep linked list for debugging
  */
-extern bool jet_inject_priv(byte *data, size_t length);
+extern struct errep *jet_inject_priv(byte *data, size_t length);
 
 /**
  * @brief Injects and executes shellcode within a process, chosen by its PID.
@@ -49,9 +49,9 @@ extern bool jet_inject_priv(byte *data, size_t length);
  * @param data the binary data (typically shellcode) to be executed from remote process memory
  * @param length the length of the executable data
  * @param pid the Process ID of the desired process
- * @return a boolean value confirming the success or failure of the function
+ * @return a pointer to an errep linked list for debugging
  */
-extern bool jet_inject_pid(byte *data, size_t length, pid_t pid);
+extern struct errep *jet_inject_pid(byte *data, size_t length, pid_t pid);
 
 /**
  * @brief Injects and executes shellcode within a process, chosen by its command-line name.
@@ -61,24 +61,24 @@ extern bool jet_inject_pid(byte *data, size_t length, pid_t pid);
  * @param data the binary data (typically shellcode) to be executed from remote process memory
  * @param length the length of the executable data
  * @param procname the command-line name of the desired process
- * @return a boolean value confirming the success or failure of the function
+ * @return a pointer to an errep linked list for debugging
  */
-extern bool jet_inject_name(byte *data, size_t length, char *procname);
+extern struct errep *jet_inject_name(byte *data, size_t length, char *procname);
 
 /**
  * Alternate version of jet_inject_priv() that doesn't use ptrace() calls.
  */
-extern bool jet_inject_priv_noptrace(byte *data, size_t length);
+extern struct errep *jet_inject_priv_noptrace(byte *data, size_t length);
 
 /**
  * Alternate version of jet_inject_pid() that doesn't use ptrace() calls.
  */
-extern bool jet_inject_pid_noptrace(byte *data, size_t length, pid_t pid);
+extern struct errep *jet_inject_pid_noptrace(byte *data, size_t length, pid_t pid);
 
 /**
  * Alternate version of jet_inject_name() that doesn't use ptrace() calls.
  */
-extern bool jet_inject_name_noptrace(byte *data, size_t length, pid_t pid);
+extern struct errep *jet_inject_name_noptrace(byte *data, size_t length, pid_t pid);
 
 extern byte stub[];
 

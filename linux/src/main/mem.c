@@ -4,52 +4,53 @@
 #include <sys/wait.h>
 #include "procjet.h"
 
-size_t mem_read(byte *buf, size_t blen, pid_t p, qword off)
+struct errep *mem_read(byte *buf, size_t blen, pid_t p, qword off)
 {
-	FILE *mem;
-	char fname[30];
-	size_t amou;
+        struct errep *err;
+        char *fnname = "mem_read()";
+        FILE *mem;
+        char fname[30];
 
-	if (!buf || blen < 1 || p < 1 || off < 1) {
-		errno = BAD_ARGS_ERR;
-		PRINT_CERR("mem_overwrite()");
-		return 0;
-	}
-	sprintf(fname, "/proc/%d/mem", p);
-	if ((mem = fopen(fname, "rb")) == NULL) {
-		perror("fopen() err");
-		return 0;
-	}
-	fseek(mem, off, SEEK_SET);
-	if ((amou = fread(buf, sizeof(byte), blen, mem)) != sizeof(byte) * blen && ferror(mem) != 0) {
-		perror("fwrite() error");
-		return 0;
-	}
-	fclose(mem);
-	return amou;
-
+        if (!buf || blen < 1 || p < 1 || off < 1) {
+                ERREP(err, fnname, "this function was provided bad arguments");
+                return err;
+        }
+        sprintf(fname, "/proc/%d/mem", p);
+        if ((mem = fopen(fname, "rb")) == NULL) {
+                ERREP(err, fnname, "error opening the process memory file for reading");
+                return err;
+        }
+        fseek(mem, off, SEEK_SET);
+        if (fread(buf, sizeof(byte), blen, mem) != sizeof(byte) * blen && ferror(mem) != 0) {
+                ERREP(err, fnname, "error reading from the process memory file");
+                return err;
+        }
+        fclose(mem);
+        ERREP(err, fnname, NULL);
+        return err;
 }
-size_t mem_write(byte *data, size_t dlen, pid_t p, qword off)
-{
-	FILE *mem;
-	char fname[30];
-	size_t amou;
 
-	if (!data || dlen < 1 || p < 1 || off < 1) {
-		errno = BAD_ARGS_ERR;
-		PRINT_CERR("mem_overwrite()");
-		return 0;
-	}
-	sprintf(fname, "/proc/%d/mem", p);
-	if ((mem = fopen(fname, "wb")) == NULL) {
-		perror("fopen() err");
-		return 0;
-	}
-	fseek(mem, off, SEEK_SET);
-	if ((amou = fwrite(data, sizeof(byte), dlen, mem)) != sizeof(byte) * dlen) {
-		perror("fwrite() error");
-		return 0;
-	}
-	fclose(mem);
-	return amou;
+struct errep *mem_write(byte *data, size_t dlen, pid_t p, qword off)
+{         
+        struct errep *err;
+        char *fnname = "mem_write()";
+        FILE *mem;
+        char fname[30];
+
+        if (!data || dlen < 1 || p < 1 || off < 1) {
+                ERREP(err, fnname, "this function was provided bad arguments");
+                return err;
+        }
+        sprintf(fname, "/proc/%d/mem", p);
+        if ((mem = fopen(fname, "wb")) == NULL) {
+                ERREP(err, fnname, "error opening the process memory file for writing");
+                return err;
+        }
+        fseek(mem, off, SEEK_SET);
+        if (fwrite(data, sizeof(byte), dlen, mem) != sizeof(byte) * dlen) {
+                ERREP(err, fnname, "error writing to the process memory file");
+        }
+        fclose(mem);
+        ERREP(err, fnname, NULL);
+        return err;
 }

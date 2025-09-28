@@ -1,9 +1,13 @@
 cmake_minimum_required(VERSION 3.15...4.00)
-project(procjet)
+project(procjet LANGUAGES C)
+set(SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/main)
+set(PHDRS ${CMAKE_CURRENT_SOURCE_DIR}/src/include)
+set(DEPS ${CMAKE_CURRENT_SOURCE_DIR}/vendors)
+add_subdirectory(${DEPS}/ptools ${DEPS}/ptools/build)
 add_executable(procjet 
-	${CMAKE_SOURCE_DIR}/src/main/pilot.c 
-	${CMAKE_SOURCE_DIR}/src/main/mem.c
-	${CMAKE_SOURCE_DIR}/src/main/jet.c
-	${CMAKE_SOURCE_DIR}/src/main/stub.c
-)
-target_include_directories(procjet PRIVATE ${CMAKE_SOURCE_DIR}/src/include)
+          ${SRC}/pilot.c 
+          ${SRC}/mem.c
+          ${SRC}/jet.c
+          ${SRC}/stub.c)
+target_include_directories(procjet PRIVATE ${PHDRS})
+target_link_libraries(procjet ptools)

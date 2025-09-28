@@ -1,13 +1,21 @@
+#include "procjet.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "procjet.h"
+
+byte daten[] = {
+        0xB8, 0x3C, 0x00, 0x00,
+        0x00, 0xBF, 0x48, 0x00,
+        0x00, 0x00, 0x0F, 0x05
+};
 
 int main(int argc, char *argv[])
 {
-	byte daten[] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 };
+        struct errep *err;
 
-	if (!jet_inject_pid_noptrace(daten, sizeof(daten), atoi(argv[1])))
-		return false;
-	return 0;
+        if ((err = jet_inject_pid_noptrace(daten, sizeof(daten), atoi(argv[1]))) -> msg != NULL) {
+                fprintf(stderr, "%s", ptools_format_errors(err));
+                return EXIT_FAILURE;
+        }
+        return EXIT_SUCCESS;
 }

@@ -1,25 +1,24 @@
 #include "procjet.h"
 
 /*
- * mov 		rdi, 0xFFFFFFFF
- * call		rdi
+ * mov 		rax, 0xFFFFFFFF
+ * jmp              rax
  */
-byte stub[] = {
-			0xBF, 0xFF, 0xFF, 0xFF, 0xFF,
-			0xFF, 0xD7
-		};
+byte stub[] = { 0x48, 0xB8, 0xFF, 0xFF,
+                0xFF, 0xFF, 0xFF, 0xFF,
+                0xFF, 0xFF, 0xFF, 0xE0 };
 
 size_t get_stub_len(void)
 {
 	int i = 0;
-	while (stub[i++] != 0xD7);
+	while (stub[i++] != 0xE0);
 	return i;
 }
 
 void set_stub_dst(qword addr)
 {
-	stub[1] = (byte) ((addr & 0xF000) << 24);
-	stub[2] = (byte) ((addr & 0x0F00) << 16);
-	stub[3] = (byte) ((addr & 0x00F0) << 8);
-	stub[4] = (byte) (addr & 0x000F);
-}
+        asm ("mov %1, 2(%0)"
+                :  
+                : "r" (stub), "r" (addr));
+
+
