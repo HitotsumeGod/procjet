@@ -14,7 +14,7 @@ An injection is defined as having three particularly mutable aspects:
    b. There is no default for the method of identification in the jet_inject family of functions; one must select either jet_inject_pid, jet_inject_name, or jet_inject_priv.
    
 3. Delivery - The method by which the target process is modified.
-4. 
+   
    a. For procjet, there are currently two possible values for this aspect:
    
      i. ptrace: the program should perform process injection and modification using the ptrace() system call API, writing to and reading from memory using PTRACE_PEEKTEXT and PTRACE_POKETEXT, and writing to and reading from registers using PTRACE_GETREGS and PTRACE_SETREGS, among other things.
