@@ -27,13 +27,13 @@ An injection is defined as having three particularly mutable aspects:
 6. Execution - The method by which the injected shellcode is executed.
    
   a. For procjet, there are currently three possible values for this aspect, with isp having different behavior based on the chosen Delivery.
-    
+    /
     i. isp (under ptrace): execution will be modified by setting the target process's instruction pointer to the shellcode address.
-    
+    /
     i. isp (under /proc): execution will be modified by writing a shellcode stub to the address specified in the program's instruction pointer, which, when executed, jumps program execution to the shellcode address.
-    
+    /
     ii. offset: execution will be modified by overwriting relevant entries in libc's Global Offset Table to the shellcode address.
-    
+    /
     iii. smash: execution will be modified by overwriting the most recent call address on the stack to the shellcode address.
     
   b. The default for the method of execution is isp.
