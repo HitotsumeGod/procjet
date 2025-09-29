@@ -1,4 +1,4 @@
-# Detailing our Abstraction for Process Injections
+Detailing our Abstraction for Process Injections
 An injection is defined as having three particularly mutable aspects:
 
 1. Identification - The method by which the target process is chosen.
