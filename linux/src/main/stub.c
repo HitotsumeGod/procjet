@@ -20,5 +20,4 @@ void set_stub_dst(qword addr)
         asm ("mov %1, 2(%0)"
                 :  
                 : "r" (stub), "r" (addr));
-
-
+}

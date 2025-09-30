@@ -15,7 +15,7 @@
  * @param offset the offset into the process memory at which the data is to be read
  * @return a pointer to an errep linked list for debugging
  */
-extern struct errep *mem_read(byte *buffer, size_t length, pid_t pid, qword offset);
+extern struct errep *jet_mem_read(byte *buffer, size_t length, pid_t pid, qword offset);
 
 /**
  * @brief Overwrites process memory via the /proc virtual filesystem.
@@ -26,7 +26,7 @@ extern struct errep *mem_read(byte *buffer, size_t length, pid_t pid, qword offs
  * @param offset the offset into the process memory at which the data is to be written
  * @return a pointer to an errep linked list for debugging
  */
-extern struct errep *mem_write(byte *data, size_t length, pid_t pid, qword offset);
+extern struct errep *jet_mem_write(byte *data, size_t length, pid_t pid, qword offset);
 
 #define _JET_C_
 
@@ -66,19 +66,19 @@ extern struct errep *jet_inject_pid(byte *data, size_t length, pid_t pid);
 extern struct errep *jet_inject_name(byte *data, size_t length, char *procname);
 
 /**
- * Alternate version of jet_inject_priv() that doesn't use ptrace() calls.
+ * Alternate version of jet_inject_priv() that utilizes the ptrace API
  */
-extern struct errep *jet_inject_priv_noptrace(byte *data, size_t length);
+extern struct errep *jet_inject_priv_trace(byte *data, size_t length);
 
 /**
- * Alternate version of jet_inject_pid() that doesn't use ptrace() calls.
+ * Alternate version of jet_inject_pid() that utilizes the ptrace API
  */
-extern struct errep *jet_inject_pid_noptrace(byte *data, size_t length, pid_t pid);
+extern struct errep *jet_inject_pid_trace(byte *data, size_t length, pid_t pid);
 
 /**
- * Alternate version of jet_inject_name() that doesn't use ptrace() calls.
+ * Alternate version of jet_inject_name() that utilizes the ptrace API
  */
-extern struct errep *jet_inject_name_noptrace(byte *data, size_t length, pid_t pid);
+extern struct errep *jet_inject_name_trace(byte *data, size_t length, pid_t pid);
 
 extern byte stub[];
 

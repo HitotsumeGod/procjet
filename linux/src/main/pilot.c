@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 {
         struct errep *err;
 
-        if ((err = jet_inject_pid_noptrace(daten, sizeof(daten), atoi(argv[1]))) -> msg != NULL) {
+        if ((err = jet_inject_pid(daten, sizeof(daten), atoi(argv[1]))) -> msg != NULL) {
                 fprintf(stderr, "%s", ptools_format_errors(err));
                 return EXIT_FAILURE;
         }

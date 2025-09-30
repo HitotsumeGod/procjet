@@ -4,10 +4,10 @@
 #include <sys/wait.h>
 #include "procjet.h"
 
-struct errep *mem_read(byte *buf, size_t blen, pid_t p, qword off)
+struct errep *jet_mem_read(byte *buf, size_t blen, pid_t p, qword off)
 {
         struct errep *err;
-        char *fnname = "mem_read()";
+        char *fnname = "jet_mem_read()";
         FILE *mem;
         char fname[30];
 
@@ -30,10 +30,10 @@ struct errep *mem_read(byte *buf, size_t blen, pid_t p, qword off)
         return err;
 }
 
-struct errep *mem_write(byte *data, size_t dlen, pid_t p, qword off)
+struct errep *jet_mem_write(byte *data, size_t dlen, pid_t p, qword off)
 {         
         struct errep *err;
-        char *fnname = "mem_write()";
+        char *fnname = "jet_mem_write()";
         FILE *mem;
         char fname[30];
 
